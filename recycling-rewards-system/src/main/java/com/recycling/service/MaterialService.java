@@ -87,4 +87,36 @@ public class MaterialService {
 
         return null;
     }
+    // UPDATE MATERIAL
+public boolean updateMaterial(String materialName, BigDecimal newPointsPerKg)
+        throws SQLException {
+
+    String query = "UPDATE materials SET points_per_kg = ? WHERE material_name = ?";
+
+    try (Connection connection = DBConnection.getConnection();
+         PreparedStatement statement = connection.prepareStatement(query)) {
+
+        statement.setBigDecimal(1, newPointsPerKg);
+        statement.setString(2, materialName);
+
+        int rowsUpdated = statement.executeUpdate();
+
+        return rowsUpdated > 0;
+    }
+}
+// DELETE MATERIAL
+public boolean deleteMaterial(String materialName) throws SQLException {
+
+    String query = "DELETE FROM materials WHERE material_name = ?";
+
+    try (Connection connection = DBConnection.getConnection();
+         PreparedStatement statement = connection.prepareStatement(query)) {
+
+        statement.setString(1, materialName);
+
+        int rowsDeleted = statement.executeUpdate();
+
+        return rowsDeleted > 0;
+    }
+}
 }
