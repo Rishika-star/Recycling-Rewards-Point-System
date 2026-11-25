@@ -113,6 +113,29 @@ public class CollectionUI extends JPanel {
 
         residentCombo = new JComboBox<>();
         styleCombo(residentCombo);
+        residentCombo.setRenderer(new DefaultListCellRenderer() {
+    @Override
+    public Component getListCellRendererComponent(
+            JList<?> list,
+            Object value,
+            int index,
+            boolean isSelected,
+            boolean cellHasFocus) {
+
+        super.getListCellRendererComponent(
+                list, value, index, isSelected, cellHasFocus
+        );
+
+        if (value instanceof Resident) {
+            Resident resident = (Resident) value;
+
+            setText(resident.getName() + " (" +
+                    resident.getMembershipId() + ")");
+        }
+
+        return this;
+    }
+});
         gbc.gridx = 1;
         card.add(residentCombo, gbc);
 
@@ -123,6 +146,28 @@ public class CollectionUI extends JPanel {
 
         materialCombo = new JComboBox<>();
         styleCombo(materialCombo);
+        materialCombo.setRenderer(new DefaultListCellRenderer() {
+    @Override
+    public Component getListCellRendererComponent(
+            JList<?> list,
+            Object value,
+            int index,
+            boolean isSelected,
+            boolean cellHasFocus) {
+
+        super.getListCellRendererComponent(
+                list, value, index, isSelected, cellHasFocus
+        );
+
+        if (value instanceof Material) {
+            Material material = (Material) value;
+
+            setText(material.getMaterialName());
+        }
+
+        return this;
+    }
+});
         gbc.gridx = 1;
         card.add(materialCombo, gbc);
 
@@ -149,16 +194,13 @@ public class CollectionUI extends JPanel {
 
         // Buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 5));
-        buttonPanel.setBackground(CARD);
 
-        JButton recordButton = new JButton("Record Collection");
-        styleButton(recordButton);
+buttonPanel.setBackground(CARD);
 
-        JButton resetButton = new JButton("Reset");
-        styleButton(resetButton);
+JButton submitButton = new JButton("Submit Collection");
+styleButton(submitButton);
 
-        buttonPanel.add(recordButton);
-        buttonPanel.add(resetButton);
+buttonPanel.add(submitButton);
 
         gbc.gridy++;
         gbc.gridx = 0;
@@ -187,8 +229,7 @@ public class CollectionUI extends JPanel {
             }
         });
 
-        recordButton.addActionListener(e -> recordCollection());
-        resetButton.addActionListener(e -> resetForm());
+        submitButton.addActionListener(e -> recordCollection());
 
         return wrapper;
     }
@@ -431,6 +472,10 @@ public class CollectionUI extends JPanel {
         button.setFocusPainted(false);
         button.setBorder(new EmptyBorder(12, 20, 12, 20));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        button.setEnabled(true);
+        button.setOpaque(true);
+        button.setContentAreaFilled(true);
 
         if (button.getText().equals("Record Collection")) {
             button.setBackground(ACCENT);

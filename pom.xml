@@ -106,19 +106,15 @@
         </pluginManagement>
 
         <!-- Application Runner -->
-        <plugins>
+       <plugins>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.5.0</version>
+    <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+    </plugin>
 
-                <configuration>
-                     <mainClass>com.recycling.ui.DashboardUI</mainClass>
-                </configuration>
-            </plugin>
-
-        </plugins>
+</plugins>
 
     </build>
 
